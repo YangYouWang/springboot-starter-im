@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=
+io.github.yangyouwang.springbootstarterim.config.AutoConfigure,
+io.github.yangyouwang.springbootstarterim.utils.SpringUtil
+
