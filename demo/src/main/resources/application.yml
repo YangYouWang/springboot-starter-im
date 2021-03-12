@@ -1,3 +1,4 @@
 im:
   netty:
     port: 8888 # 配置聊天端口
+    path: /im/ws

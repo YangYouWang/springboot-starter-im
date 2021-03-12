@@ -16,6 +16,10 @@ public class NettyProperties {
      * 端口
      */
     private Integer port;
+    /**
+     * 路径
+     */
+    private String path;
 
     public Integer getPort() {
         return port;
@@ -23,5 +27,13 @@ public class NettyProperties {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

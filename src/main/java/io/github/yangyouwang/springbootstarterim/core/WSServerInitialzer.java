@@ -1,5 +1,7 @@
 package io.github.yangyouwang.springbootstarterim.core;
 
+import io.github.yangyouwang.springbootstarterim.config.NettyProperties;
+import io.github.yangyouwang.springbootstarterim.utils.SpringUtil;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -39,9 +41,11 @@ public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
         /**
          * 本handler 会帮你处理一些繁重复杂的事情
          * 会帮你处理握手动作：handshaking（close、ping、pong） ping+pong = 心跳
-         * 对于websocket 来讲，都是以frams 进行传输的，不同的数据类型对应的frams 也不同
+         * 对于websocket 来讲frams 进行传输的，不同的数据类型对应的frams 也不同
          */
-        pipeline.addLast(new WebSocketServerProtocolHandler("/im/ws"));
+        NettyProperties properties = SpringUtil.getBean(NettyProperties.class);
+        String path =  properties.getPath();
+        pipeline.addLast(new WebSocketServerProtocolHandler(path));
 
         //自定义的handler
         pipeline.addLast(new ChatHandler());

@@ -32,6 +32,9 @@ public class NettyBooter {
             if (null == properties.getPort()) {
                 throw new RuntimeException("未设置启动端口～");
             }
+            if (null == properties.getPath()) {
+                throw new RuntimeException("未设置url路径口～");
+            }
             ChannelFuture future = server.bind(properties.getPort()).sync();
             if (future.isSuccess()) {
                 System.out.println("启动 Netty 成功");

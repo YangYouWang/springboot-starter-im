@@ -1,17 +1,25 @@
 package com.example.demo;
 
 import io.github.yangyouwang.springbootstarterim.config.NettyBooter;
-import io.github.yangyouwang.springbootstarterim.utils.SpringUtil;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.Resource;
+
 @SpringBootApplication
-public class DemoApplication {
+public class DemoApplication implements ApplicationRunner {
+
+	@Resource
+	private NettyBooter nettyBooter;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-		NettyBooter nettyBooter = SpringUtil.getBean(NettyBooter.class);
-		nettyBooter.start();
 	}
 
+	@Override
+	public void run(ApplicationArguments args) {
+		nettyBooter.start();
+	}
 }

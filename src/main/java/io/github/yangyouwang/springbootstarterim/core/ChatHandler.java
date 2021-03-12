@@ -26,6 +26,19 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
      * 用于记录和管理所有客户端的channel
      */
     public static ChannelGroup users = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+    /**
+     * 容器
+     */
+    private static final ApplicationContext applicationContext;
+    /**
+     * 事件
+     */
+    private static final DataContentEvent dataContentEvent;
+
+    static {
+        applicationContext = SpringUtil.getApplicationContext();
+        dataContentEvent = DataContentEvent.getInstance();
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) {
@@ -58,16 +71,17 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                     );
                 }
             }
+            // 异步消息
+            dataContentEvent.setDataContent(dataContent);
+            applicationContext.publishEvent(dataContentEvent);
         } else if(action == MsgActionEnum.SIGNED.TYPE){
             // 签收消息类型
             ChatMsg chatMsg = dataContent.getChatMsg();
-            chatMsg.setStatus(MsgStatusEnum.MSG_STATUS_HAVE_READ.getCODE());
+            chatMsg.setStatus(MsgStatusEnum.MSG_STATUS_HAVE_READ.CODE);
+            // 异步消息
+            dataContentEvent.setDataContent(dataContent);
+            applicationContext.publishEvent(dataContentEvent);
         }
-        // 异步消息
-        ApplicationContext applicationContext = SpringUtil.getApplicationContext();
-        DataContentEvent dataContentEvent = new DataContentEvent(applicationContext);
-        dataContentEvent.setDataContent(dataContent);
-        applicationContext.publishEvent(dataContentEvent);
     }
 
     @Override
