@@ -18,11 +18,11 @@ public enum MsgStatusEnum {
         this.TYPE = TYPE;
     }
 
-    public static String getType(int CODE) {
+    public static MsgStatusEnum getEnum(int CODE) {
         MsgStatusEnum[] msgTypeEnums = values();
         for (MsgStatusEnum msgTypeEnum : msgTypeEnums) {
             if (msgTypeEnum.CODE == CODE) {
-                return msgTypeEnum.TYPE;
+                return msgTypeEnum;
             }
         }
         return null;

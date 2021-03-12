@@ -10,8 +10,7 @@ public enum MsgActionEnum {
 	CONNECT(1, "第一次(或重连)初始化连接"),
 	CHAT(2, "聊天消息"),	
 	SIGNED(3, "消息签收"),
-	KEEP_ALIVE(4, "客户端保持心跳"),
-	PULL_FRIEND(5, "拉取好友");
+	KEEP_ALIVE(4, "客户端保持心跳");
 	
 	public final int TYPE;
 	public final String CONTENT;
@@ -21,11 +20,11 @@ public enum MsgActionEnum {
 		this.CONTENT = CONTENT;
 	}
 
-	public static String getContent(int type) {
+	public static MsgActionEnum getEnum(int type) {
 		MsgActionEnum[] msgActionEnums = values();
 		for (MsgActionEnum msgActionEnum : msgActionEnums) {
 			if (msgActionEnum.TYPE == type) {
-				return msgActionEnum.CONTENT;
+				return msgActionEnum;
 			}
 		}
 		return null;

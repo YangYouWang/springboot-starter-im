@@ -43,8 +43,7 @@ public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
          * 会帮你处理握手动作：handshaking（close、ping、pong） ping+pong = 心跳
          * 对于websocket 来讲frams 进行传输的，不同的数据类型对应的frams 也不同
          */
-        NettyProperties properties = SpringUtil.getBean(NettyProperties.class);
-        String path =  properties.getPath();
+        String path = SpringUtil.getBean(NettyProperties.class).getPath();
         pipeline.addLast(new WebSocketServerProtocolHandler(path));
 
         //自定义的handler
