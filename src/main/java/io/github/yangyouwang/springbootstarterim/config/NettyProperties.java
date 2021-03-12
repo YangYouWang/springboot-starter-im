@@ -1,6 +1,5 @@
 package io.github.yangyouwang.springbootstarterim.config;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -10,7 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @description:
  * @date 2021/3/92:39 PM
  */
-@Data
 @ConfigurationProperties(prefix = "im.netty")
 public class NettyProperties {
 
@@ -18,4 +16,12 @@ public class NettyProperties {
      * 端口
      */
     private Integer port;
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
 }

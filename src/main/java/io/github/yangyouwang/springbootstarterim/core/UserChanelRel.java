@@ -2,7 +2,8 @@ package io.github.yangyouwang.springbootstarterim.core;
 
 import io.netty.channel.Channel;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 用户id 和channel 的关联关系处理
@@ -10,7 +11,7 @@ import java.util.HashMap;
  */
 public class UserChanelRel {
 
-    private static HashMap<Long, Channel> manage = new HashMap<>();
+    private static Map<Long, Channel> manage = new ConcurrentHashMap<Long, Channel>();
 
     public static  void put(Long fromUserId,Channel channel){
         manage.put(fromUserId,channel);
