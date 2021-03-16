@@ -1,4 +1,4 @@
-package io.github.yangyouwang.springbootstarterim.core;
+package io.github.yangyouwang.springbootstarterim.bean;
 
 import io.github.yangyouwang.springbootstarterim.constant.MsgActionEnum;
 import io.github.yangyouwang.springbootstarterim.constant.MsgStatusEnum;
@@ -96,10 +96,10 @@ public class DataContentEvent extends ApplicationEvent {
                 ", status=" + status +
                 '}';
     }
-
-    private static ApplicationContext applicationContext = SpringUtil.getApplicationContext();
-
     private static class SingletonClassInstance {
+
+        private static final ApplicationContext applicationContext = SpringUtil.getApplicationContext();
+
         private static final DataContentEvent instance = new DataContentEvent(applicationContext);
     }
 

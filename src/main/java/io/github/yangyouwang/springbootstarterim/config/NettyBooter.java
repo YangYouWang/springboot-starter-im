@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @date 2021/3/123:02 PM
  */
 @Configuration
-@Import({NettyConfig.class})
+@Import({NettyConfig.class,MsgConfig.class})
 @EnableConfigurationProperties(NettyProperties.class)
 public class NettyBooter {
 

@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 io.github.yangyouwang.springbootstarterim.utils.SpringUtil,\
+io.github.yangyouwang.springbootstarterim.factory.MsgContextFactory,\
 io.github.yangyouwang.springbootstarterim.config.NettyBooter
-

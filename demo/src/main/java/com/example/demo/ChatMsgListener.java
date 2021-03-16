@@ -1,7 +1,7 @@
 package com.example.demo;
 
+import io.github.yangyouwang.springbootstarterim.bean.DataContentEvent;
 import io.github.yangyouwang.springbootstarterim.constant.MsgActionEnum;
-import io.github.yangyouwang.springbootstarterim.core.DataContentEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
