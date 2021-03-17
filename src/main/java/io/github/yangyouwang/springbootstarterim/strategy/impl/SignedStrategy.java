@@ -28,7 +28,7 @@ public class SignedStrategy implements MsgStrategy {
         Long toUserId = chatMsg.getToUserId();
         Long fromUserId = chatMsg.getFromUserId();
         // 签收消息类型
-        DataContentEvent dataContentEvent = DataContentEvent.getInstance();
+        DataContentEvent dataContentEvent = new DataContentEvent(applicationContext);
         dataContentEvent.setStatus(MsgStatusEnum.MSG_STATUS_HAVE_READ);
         dataContentEvent.setFromUserId(fromUserId);
         dataContentEvent.setToUserId(toUserId);

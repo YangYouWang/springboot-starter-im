@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import io.github.yangyouwang.springbootstarterim.config.NettyBooter;
+import io.github.yangyouwang.springbootstarterim.NettyBooter;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;

@@ -1,6 +1,7 @@
 package io.github.yangyouwang.springbootstarterim.core;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
@@ -12,6 +13,7 @@ import io.netty.handler.timeout.IdleStateEvent;
  * 继承ChannelInboundHandlerAdapter，目的是不需要实现ChannelRead0 这个方法
  * @author yangyouwang
  */
+@ChannelHandler.Sharable
 public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
 
     @Override

@@ -22,7 +22,7 @@ public class KeepAliveStrategy implements MsgStrategy {
     @Override
     public void doAction(DataContent dataContent) {
         MsgActionEnum msgActionEnum = MsgActionEnum.getEnum(dataContent.getAction());
-        DataContentEvent dataContentEvent = DataContentEvent.getInstance();
+        DataContentEvent dataContentEvent = new DataContentEvent(applicationContext);
         dataContentEvent.setAction(msgActionEnum);
         applicationContext.publishEvent(dataContentEvent);
     }

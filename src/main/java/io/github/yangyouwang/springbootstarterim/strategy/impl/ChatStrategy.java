@@ -49,7 +49,7 @@ public class ChatStrategy implements MsgStrategy {
                 );
             }
             // 用户离线
-            DataContentEvent dataContentEvent = DataContentEvent.getInstance();
+            DataContentEvent dataContentEvent = new DataContentEvent(applicationContext);
             dataContentEvent.setFromUserId(fromUserId);
             dataContentEvent.setToUserId(toUserId);
             dataContentEvent.setType(msgTypeEnum);

@@ -30,7 +30,7 @@ public class ConnectStrategy implements MsgStrategy {
         Channel channel =  ChatHandler.ctx.channel();
         UserChanelRel.put(fromUserId,channel);
 
-        DataContentEvent dataContentEvent = DataContentEvent.getInstance();
+        DataContentEvent dataContentEvent = new DataContentEvent(applicationContext);
         dataContentEvent.setFromUserId(fromUserId);
         dataContentEvent.setAction(msgActionEnum);
         applicationContext.publishEvent(dataContentEvent);

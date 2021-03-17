@@ -1,10 +1,9 @@
-package io.github.yangyouwang.springbootstarterim.config;
+package io.github.yangyouwang.springbootstarterim;
 
+import io.github.yangyouwang.springbootstarterim.config.NettyProperties;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -16,9 +15,7 @@ import javax.annotation.Resource;
  * @description: 启动类
  * @date 2021/3/123:02 PM
  */
-@Configuration
-@Import({NettyConfig.class,MsgConfig.class})
-@EnableConfigurationProperties(NettyProperties.class)
+@Component
 public class NettyBooter {
 
     @Resource

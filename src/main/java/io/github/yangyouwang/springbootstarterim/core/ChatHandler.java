@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.github.yangyouwang.springbootstarterim.constant.MsgActionEnum;
 import io.github.yangyouwang.springbootstarterim.bean.DataContent;
 import io.github.yangyouwang.springbootstarterim.factory.MsgContextFactory;
-import io.github.yangyouwang.springbootstarterim.utils.SpringUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -12,11 +12,13 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
+import javax.annotation.Resource;
 
 /**
  * 用于处理消息的handler
  * @author yangyouwang
  */
+@ChannelHandler.Sharable
 public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
     /**
      * 用于记录和管理所有客户端的channel
@@ -24,6 +26,9 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
     public static ChannelGroup users = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     public static ChannelHandlerContext ctx;
+
+    @Resource
+    private MsgContextFactory msgContextFactory;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) {
@@ -33,7 +38,6 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         DataContent dataContent = JSONObject.parseObject(content,DataContent.class);
         // 业务操作
         MsgActionEnum msgActionEnum = MsgActionEnum.getEnum(dataContent.getAction());
-        MsgContextFactory msgContextFactory = SpringUtil.getBean(MsgContextFactory.class);
         msgContextFactory.getMsgStrategy(msgActionEnum).doAction(dataContent);
     }
 

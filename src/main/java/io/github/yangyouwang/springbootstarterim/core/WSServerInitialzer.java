@@ -1,7 +1,6 @@
 package io.github.yangyouwang.springbootstarterim.core;
 
 import io.github.yangyouwang.springbootstarterim.config.NettyProperties;
-import io.github.yangyouwang.springbootstarterim.utils.SpringUtil;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -11,14 +10,25 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 
+import javax.annotation.Resource;
+
 /**
  * 通道
  * @author yangyouwang
  */
 public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
 
+    @Resource
+    private ChatHandler chatHandler;
+
+    @Resource
+    private HeartBeatHandler heartBeatHandler;
+
+    @Resource
+    private NettyProperties nettyProperties;
+
     @Override
-    protected void initChannel(SocketChannel channel) throws Exception {
+    protected void initChannel(SocketChannel channel) {
         //获取管道（pipeline）
         ChannelPipeline pipeline = channel.pipeline();
         //websocket 基于http协议，所需要的http 编解码器
@@ -36,17 +46,17 @@ public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
          */
         pipeline.addLast(new IdleStateHandler(8,10,12));
         //自定义的空闲状态检测的handler
-        pipeline.addLast(new HeartBeatHandler());
+        pipeline.addLast(heartBeatHandler);
 
         /**
          * 本handler 会帮你处理一些繁重复杂的事情
          * 会帮你处理握手动作：handshaking（close、ping、pong） ping+pong = 心跳
          * 对于websocket 来讲frams 进行传输的，不同的数据类型对应的frams 也不同
          */
-        String path = SpringUtil.getBean(NettyProperties.class).getPath();
+        String path = nettyProperties.getPath();
         pipeline.addLast(new WebSocketServerProtocolHandler(path));
 
         //自定义的handler
-        pipeline.addLast(new ChatHandler());
+        pipeline.addLast(chatHandler);
     }
 }

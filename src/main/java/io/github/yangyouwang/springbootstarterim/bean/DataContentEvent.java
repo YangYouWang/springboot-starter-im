@@ -3,8 +3,6 @@ package io.github.yangyouwang.springbootstarterim.bean;
 import io.github.yangyouwang.springbootstarterim.constant.MsgActionEnum;
 import io.github.yangyouwang.springbootstarterim.constant.MsgStatusEnum;
 import io.github.yangyouwang.springbootstarterim.constant.MsgTypeEnum;
-import io.github.yangyouwang.springbootstarterim.utils.SpringUtil;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -36,6 +34,10 @@ public class DataContentEvent extends ApplicationEvent {
      * 状态 0：未读 1：已读
      */
     private MsgStatusEnum status;
+
+    public DataContentEvent(Object source) {
+        super(source);
+    }
 
     public Long getFromUserId() {
         return fromUserId;
@@ -95,19 +97,5 @@ public class DataContentEvent extends ApplicationEvent {
                 ", type=" + type +
                 ", status=" + status +
                 '}';
-    }
-    private static class SingletonClassInstance {
-
-        private static final ApplicationContext applicationContext = SpringUtil.getApplicationContext();
-
-        private static final DataContentEvent instance = new DataContentEvent(applicationContext);
-    }
-
-    private DataContentEvent(Object source) {
-        super(source);
-    }
-
-    public static DataContentEvent getInstance(){
-        return SingletonClassInstance.instance;
     }
 }

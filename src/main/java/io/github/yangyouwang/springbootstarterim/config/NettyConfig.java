@@ -1,5 +1,7 @@
 package io.github.yangyouwang.springbootstarterim.config;
 
+import io.github.yangyouwang.springbootstarterim.core.ChatHandler;
+import io.github.yangyouwang.springbootstarterim.core.HeartBeatHandler;
 import io.github.yangyouwang.springbootstarterim.core.WSServerInitialzer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -18,7 +20,8 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/3/94:05 PM
  */
 @Configuration
-@ConditionalOnClass({NioEventLoopGroup.class,ServerBootstrap.class})
+@ConditionalOnClass({NioEventLoopGroup.class,ServerBootstrap.class,
+        WSServerInitialzer.class})
 public class NettyConfig {
 
     @Bean("mainGroup")
@@ -33,11 +36,28 @@ public class NettyConfig {
         return new NioEventLoopGroup();
     }
 
+    @Bean("chanelInit")
+    @ConditionalOnMissingBean
+    public WSServerInitialzer wsServerInitialzer() {
+        return new WSServerInitialzer();
+    }
+
+    @Bean("HeartBeatHandler")
+    public HeartBeatHandler HeartBeatHandler() {
+        return new HeartBeatHandler();
+    }
+
+    @Bean("chatHandler")
+    public ChatHandler chatHandler() {
+        return new ChatHandler();
+    }
+
     @Bean("server")
     @ConditionalOnMissingBean
-    public ServerBootstrap server(NioEventLoopGroup mainGroup,NioEventLoopGroup subGroup) {
+    public ServerBootstrap server(NioEventLoopGroup mainGroup,NioEventLoopGroup subGroup,
+                                  WSServerInitialzer chanelInit) {
         return new ServerBootstrap().group(mainGroup, subGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new WSServerInitialzer());
+                .childHandler(chanelInit);
     }
 }
